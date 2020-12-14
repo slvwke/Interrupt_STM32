@@ -106,7 +106,6 @@ int main(void)
 	  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), 100);
 
 
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
