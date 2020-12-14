@@ -557,6 +557,7 @@ int main(void)
  80004f8:	4603      	mov	r3, r0
  80004fa:	81fb      	strh	r3, [r7, #14]
 
+	  //raw = raw*1000; - dodanie tutaj tej linijki prawidłowo przemnaża liczbę która ma być przesłana do uarta
 	  // Convert to string and print
 	  sprintf(msg, "%hu\r\n", raw);
  80004fc:	89fa      	ldrh	r2, [r7, #14]

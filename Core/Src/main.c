@@ -111,6 +111,7 @@ int main(void)
 	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 	  raw = HAL_ADC_GetValue(&hadc1);
 
+	  //raw = raw*1000; - dodanie tutaj tej linijki prawidłowo przemnaża liczbę która ma być przesłana do uarta
 	  // Convert to string and print
 	  sprintf(msg, "%hu\r\n", raw);
 	  HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
