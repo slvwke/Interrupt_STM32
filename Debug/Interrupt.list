@@ -727,6 +727,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
  8000608:	2120      	movs	r1, #32
  800060a:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
  800060e:	f001 fd39 	bl	8002084 <HAL_GPIO_TogglePin>
+		//raw = raw*1000; - użycie tutaj zwraca: 'raw' undeclared (first use in this function)
 	}
 }
  8000612:	bf00      	nop

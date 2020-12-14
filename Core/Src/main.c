@@ -178,6 +178,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if(GPIO_Pin == B1_Pin)
 	{
 		HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
+		//raw = raw*1000; - użycie tutaj zwraca: 'raw' undeclared (first use in this function)
 	}
 }
 /* USER CODE END 4 */
