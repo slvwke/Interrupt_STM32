@@ -66,7 +66,8 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	uint16_t raw;
+	char msg[10];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -88,6 +89,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -96,14 +98,24 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  static uint16_t counter;
-	  uint8_t buf[20];
-	  sprintf((char*)buf, (char*)"Value:%d\n", counter);
-	   //incrementing counter variable
-	  counter = counter + 1;
+	  //static uint16_t counter;
+	  //uint8_t buf[20];
+	  //sprintf((char*)buf, (char*)"Hello World:%d\n", counter);
+	  // incrementing counter variable
+	  //counter = counter + 1;
+	  // send buf zero termination string to UART2
+	  //HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), 100);
 
-	   //send buf zero termination string to UART2
-	  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), 100);
+	  // Get ADC value
+	  HAL_ADC_Start(&hadc1);
+	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+	  raw = HAL_ADC_GetValue(&hadc1);
+
+	  // Convert to string and print
+	  sprintf(msg, "%hu\r\n", raw);
+	  HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+
+	  HAL_Delay(100);
 
 
     /* USER CODE END WHILE */
