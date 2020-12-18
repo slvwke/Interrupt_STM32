@@ -96,9 +96,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  static uint16_t counter;
-	  uint8_t buf[20];
-	  sprintf((char*)buf, (char*)"Value:%d\n", counter);
+	  static uint16_t counter; // static- zmienna statyczna nie zeruje sie po kazdej petli //uint16_t zmienna 0 – 65535 całkowitoliczbowa
+	  uint8_t buf[20];  //tablica zmiennych od 0 - 65535 całkowitoliczbowych mieszcząca 20 liczb
+	  sprintf((char*)buf, (char*)"Value:%d\n", counter); //buff jest zmienną wskaźnikową przechowującą adres liczby typu 'char'
 	   //incrementing counter variable
 	  counter = counter + 1;
 
