@@ -88,6 +88,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -97,14 +98,31 @@ int main(void)
   while (1)
   {
 	  static uint16_t counter; // static- zmienna statyczna nie zeruje sie po kazdej petli //uint16_t zmienna 0 – 65535 całkowitoliczbowa
+
+	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, SET);
+
+	  for(counter = 0; counter <=100; counter = counter + 1)
+	  {
+
+		  uint8_t buf[20];  //tablica zmiennych od 0 - 65535 całkowitoliczbowych mieszcząca 20 liczb
+		  sprintf((char*)buf, (char*)"Value:%d\n", counter); //buff jest zmienną wskaźnikową przechowującą adres liczby typu 'char'
+		   //send buf zero termination string to UART2
+		  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), 100);
+		  HAL_Delay(1000);
+	  }
+	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, RESET);
+		/*
+	  static uint16_t counter; // static- zmienna statyczna nie zeruje sie po kazdej petli //uint16_t zmienna 0 – 65535 całkowitoliczbowa
 	  uint8_t buf[20];  //tablica zmiennych od 0 - 65535 całkowitoliczbowych mieszcząca 20 liczb
 	  sprintf((char*)buf, (char*)"Value:%d\n", counter); //buff jest zmienną wskaźnikową przechowującą adres liczby typu 'char'
-	   //incrementing counter variable
+
+
+	  //incrementing counter variable
 	  counter = counter + 1;
 
 	   //send buf zero termination string to UART2
 	  HAL_UART_Transmit(&huart2, buf, strlen((char*)buf), 100);
-
+/*
 
     /* USER CODE END WHILE */
 
@@ -162,10 +180,15 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if(GPIO_Pin == B1_Pin)
-	{
-		HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
-	}
+	//if(GPIO_Pin == B1_Pin)
+	//{
+
+		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, SET);
+
+
+	//}
 }
 /* USER CODE END 4 */
 
